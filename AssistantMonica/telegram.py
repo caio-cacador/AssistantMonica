@@ -35,7 +35,7 @@ class Telegram:
                 print(f'message to monica >> {message}')
                 self.last_message = MessageNamedTuple(chat_id, message.strip(), first_name, msg['from'].get('id', ''))
 
-    def send_message(self, text: str, chat_id: int = None):
+    def send_message(self, text: str = '', chat_id: int = None):
         if not chat_id:
             chat_id = self._default_chat_id
         try:

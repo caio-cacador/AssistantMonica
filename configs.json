@@ -1,0 +1,17 @@
+{
+  "telegram_configs": {
+    "token": "891967726:AAF4iR0AknoObf_L-rwKIwjIxzeGtYdeTM4",
+    "default_chat_id": -1001318092698,
+    "accepted_names": ["monica", "mônica"],
+    "bot_name": "monica"
+  },
+  "cam_configs": {
+    "address": "rtsp://admin:192.168.0.163/"
+  },
+  "arduino_configs": {
+    "usb_port": "/dev/ttyUSB0"
+  },
+  "recognition_configs": {
+    "minimal_similarity": 0.5
+  }
+}

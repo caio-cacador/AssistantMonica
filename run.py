@@ -1,3 +1,5 @@
+from time import sleep
+
 import ujson
 
 from AssistantMonica.arduino import Arduino
@@ -22,3 +24,4 @@ if __name__ == "__main__":
             # elif telegram.last_message.user_id in telegram_configs.get('authorized_users', []):
 
         telegram.last_message = None
+        sleep(0.3)
