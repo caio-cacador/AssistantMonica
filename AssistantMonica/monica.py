@@ -6,7 +6,7 @@ from AssistantMonica import interpreters
 from AssistantMonica.arduino import Arduino
 from AssistantMonica.camera import Camera
 from AssistantMonica.constants import LINK_FILTER, NORMAL_GREETING, INFORMAL_GREETING, GREETING_WITH_QUESTION, \
-    COMPLIMENT_RESPONSE, LOCK_DOOR, OPEN_DOOR, GET_BEDROOM_IMAGE, PERMISSION_DENIED_TO_EXECUTE_COMMAND
+    COMPLIMENT_RESPONSE, LOCK_DOOR, OPEN_DOOR, GET_BEDROOM_IMAGE, PERMISSION_DENIED_TO_EXECUTE_COMMAND, RESTART
 
 from AssistantMonica.telegram import Telegram, MessageNamedTuple
 from AssistantMonica.utils import request, get_answer_clean, normalize_str
@@ -71,8 +71,12 @@ class Monica:
             if gretting in phrase:
                 return 'Estou bem, e você, ' + random.choice(GREETING_WITH_QUESTION) + '?'
 
-    def _check_admin_permission(self, user_id):
+    def check_admin_permission(self, user_id):
         if not self.telegram.have_admin_permission(user_id):
+            self.telegram.send_message(PERMISSION_DENIED_TO_EXECUTE_COMMAND)
+
+    def check_master_permission(self, user_id):
+        if not self.telegram.have_admin_permission(user_id) or not self.telegram.have_master_permission(user_id):
             self.telegram.send_message(PERMISSION_DENIED_TO_EXECUTE_COMMAND)
 
     def message_interpreter(self, message: MessageNamedTuple):
@@ -102,13 +106,13 @@ class Monica:
         command = normalize_str(message.text)
 
         if command in OPEN_DOOR:
-            self._check_admin_permission(message.user_id)
+            self.check_admin_permission(message.user_id)
             self.arduino.unlock_door()
 
         elif command in LOCK_DOOR:
-            self._check_admin_permission(message.user_id)
+            self.check_admin_permission(message.user_id)
             self.arduino.lock_door()
 
         elif command in GET_BEDROOM_IMAGE:
-            self._check_admin_permission(message.user_id)
+            self.check_admin_permission(message.user_id)
             self.telegram.send_photo(image=self._camera.get_current_frame())

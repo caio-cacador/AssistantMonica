@@ -31,3 +31,5 @@ LOCK_DOOR = ['feche a porta', 'tranque a porta']
 GET_BEDROOM_IMAGE = ['mostre meu quarto', 'mostre o meu quarto', 'mande a foto do quarto', 'mande a foto do meu quarto']
 
 PERMISSION_DENIED_TO_EXECUTE_COMMAND = 'Você não tem permissão para dar esse comando! você é um merda.'
+
+RESTART = ['reinicie', 'morra']
