@@ -76,7 +76,7 @@ class Monica:
             self.telegram.send_message(PERMISSION_DENIED_TO_EXECUTE_COMMAND)
 
     def check_master_permission(self, user_id):
-        if not self.telegram.have_admin_permission(user_id) or not self.telegram.have_master_permission(user_id):
+        if not (self.telegram.have_admin_permission(user_id) or self.telegram.have_master_permission(user_id)):
             self.telegram.send_message(PERMISSION_DENIED_TO_EXECUTE_COMMAND)
 
     def message_interpreter(self, message: MessageNamedTuple):
