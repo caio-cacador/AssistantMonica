@@ -4,3 +4,4 @@ ujson
 requests
 bs4
 unidecode
+opencv-python

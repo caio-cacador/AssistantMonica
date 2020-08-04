@@ -15,7 +15,7 @@ WHAT_IS_INTERPRETER = ('o que é', 'o q e', 'oq e', 'o que eh', 'o q eh', 'oque 
 
 WHO_IS_INTERPRETER = ('quem é', 'quem eh')
 
-MONICA_FILTER = ('monica')
+MONICA_FILTER = ['monica']
 
 LINK_FILTER = ('www.buscape', 'www.fastshop', 'www.zoom', 'www.magazineluiza', 'www.xvideos', 'www.porhub')
 
@@ -25,3 +25,9 @@ TAG_FILTER = "<p style.*?>|<img.*?>|<p class=.*?>|<a href.*?>|</strong>|<strong>
              "<\/span>\(<\/span>|"
 
 TAG_FILTER_FASE_2 = "<p>|<b>|</b>|<br>|</br>|<br/>|<a>|</a>|</sup>|</p>|<i>|</span>|<span>"
+
+OPEN_DOOR = ['abra a porta', 'destranque a porta']
+LOCK_DOOR = ['feche a porta', 'tranque a porta']
+GET_BEDROOM_IMAGE = ['mostre meu quarto', 'mostre o meu quarto', 'mande a foto do quarto', 'mande a foto do meu quarto']
+
+PERMISSION_DENIED_TO_EXECUTE_COMMAND = 'Você não tem permissão para dar esse comando! você é um merda.'

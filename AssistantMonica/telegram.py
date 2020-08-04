@@ -3,6 +3,7 @@ from collections import namedtuple
 from telepot import Bot, exception
 from telepot.loop import MessageLoop
 from AssistantMonica import utils
+from AssistantMonica.camera import Buffer
 
 MessageNamedTuple = namedtuple('message', ['chat_id', 'text', 'user_name', 'user_id'])
 
@@ -13,6 +14,8 @@ class Telegram:
         self.bot = Bot(configs['token'])
         self._default_chat_id = configs['default_chat_id']
         self._bot_name = configs['bot_name']
+        self._admin_users = configs['authorized_users']['admin']
+        self._master_users = configs['authorized_users']['master']
 
         self.last_message = None
         MessageLoop(self.bot, self._handle).run_as_thread()
@@ -34,6 +37,11 @@ class Telegram:
                 message = message[len(self._bot_name)+1:]
                 print(f'message to monica >> {message}')
                 self.last_message = MessageNamedTuple(chat_id, message.strip(), first_name, msg['from'].get('id', ''))
+
+    def send_photo(self, image, name: str = 'photo.png', _type: str = '.PNG', chat_id: int = None):
+        if not chat_id:
+            chat_id = self._default_chat_id
+        self.bot.sendPhoto(chat_id, (name, Buffer(_type=_type, image=image)))
 
     def send_message(self, text: str = '', chat_id: int = None):
         if not chat_id:
@@ -58,4 +66,14 @@ class Telegram:
                 else:
                     self.send_message(text="Por favor, responda com 'sim' ou 'nao'.", chat_id=chat_id)
                     self.last_message = None
+        return False
+
+    def have_admin_permission(self, user):
+        if user in self._admin_users:
+            return True
+        return False
+
+    def have_master_permission(self, user):
+        if user in self._master_users:
+            return True
         return False
