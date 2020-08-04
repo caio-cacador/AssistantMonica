@@ -22,7 +22,7 @@ LINK_FILTER = ('www.buscape', 'www.fastshop', 'www.zoom', 'www.magazineluiza', '
 TAG_FILTER = "<p style.*?>|<img.*?>|<p class=.*?>|<a href.*?>|</strong>|<strong>|<a class=.*?>|" + \
              "<sup class.*?>|<span>\[.*?\]</span>|<sup.?>|" + \
              "</i>|</sub>|<sub>|<span.*?</span>|<small>|</small>|\\xa0|<\/span>\)<\/span>|" + \
-             "<\/span>\(<\/span>|"
+             "<\/span>\(<\/span>|<em>.*?</em>"
 
 TAG_FILTER_FASE_2 = "<p>|<b>|</b>|<br>|</br>|<br/>|<a>|</a>|</sup>|</p>|<i>|</span>|<span>"
 
