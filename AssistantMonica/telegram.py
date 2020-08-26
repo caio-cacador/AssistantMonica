@@ -11,18 +11,21 @@ MessageNamedTuple = namedtuple('message', ['chat_id', 'text', 'user_name', 'user
 class Telegram:
 
     def __init__(self, configs: dict):
-        self.bot = Bot(configs['token'])
+        self._bot = Bot(configs['token'])
         self._default_chat_id = configs['default_chat_id']
         self._bot_name = configs['bot_name']
         self._admin_users = configs['authorized_users']['admin']
         self._master_users = configs['authorized_users']['master']
 
         self.last_message = None
-        MessageLoop(self.bot, self._handle).run_as_thread()
+        MessageLoop(self._bot, self._handle).run_as_thread()
 
     @staticmethod
     def _compare_messages(text1: str, text2: str) -> bool:
         return utils.normalize_str(text1.lower()) == utils.normalize_str(text2.lower())
+
+    def _close_connection(self):
+        self._bot.message_loop()
 
     def _handle(self, msg):
         if msg:

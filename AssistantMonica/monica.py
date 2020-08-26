@@ -6,7 +6,9 @@ from AssistantMonica import interpreters
 from AssistantMonica.arduino import Arduino
 from AssistantMonica.camera import Camera
 from AssistantMonica.constants import LINK_FILTER, NORMAL_GREETING, INFORMAL_GREETING, GREETING_WITH_QUESTION, \
-    COMPLIMENT_RESPONSE, LOCK_DOOR, OPEN_DOOR, GET_BEDROOM_IMAGE, PERMISSION_DENIED_TO_EXECUTE_COMMAND, RESTART
+    COMPLIMENT_RESPONSE, LOCK_DOOR, OPEN_DOOR, GET_BEDROOM_IMAGE, PERMISSION_DENIED_TO_EXECUTE_COMMAND, RESTART, \
+    GET_CORREIO_TRACKING
+from AssistantMonica.correio import Correio
 
 from AssistantMonica.telegram import Telegram, MessageNamedTuple
 from AssistantMonica.utils import request, get_answer_clean, normalize_str
@@ -18,6 +20,7 @@ class Monica:
         self._camera = camera
         self.telegram = telegram
         self.arduino = arduino
+        self.correioService = Correio()
 
     def _what_is(self, question):
         theme = interpreters.what_is_interpreter(question)
@@ -113,6 +116,6 @@ class Monica:
             self.check_admin_permission(message.user_id)
             self.arduino.lock_door()
 
-        elif command in GET_BEDROOM_IMAGE:
+        elif command in GET_CORREIO_TRACKING:
             self.check_admin_permission(message.user_id)
             self.telegram.send_photo(image=self._camera.get_current_frame())

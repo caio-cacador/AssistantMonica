@@ -16,9 +16,9 @@ def run():
     arduino = Arduino(configs=configs['arduino_configs'])
     telegram = Telegram(configs=telegram_configs)
     camera = Camera(cam_configs=configs['cam_configs'])
+    camera.start_update()
     monica = Monica(telegram=telegram, arduino=arduino, camera=camera)
 
-    camera.start_update()
 
     print(' - Assistant Monica is Online.')
     telegram.send_message(text=' - Assistant Monica is Online.')

@@ -8,22 +8,25 @@ class Arduino:
     _LOCK_POSITION = 180
 
     def __init__(self, configs: dict):
-        arduino = PyfirmataArduino(configs['usb_port'])
+        self._arduino = PyfirmataArduino(configs['usb_port'])
         print('arduino is online!')
-        it = util.Iterator(arduino)
+        it = util.Iterator(self._arduino)
         it.start()
 
-        self._btn_door = arduino.get_pin('d:5:i')
+        self._btn_door = self._arduino.get_pin('d:5:i')
         self._btn_door.enable_reporting()
-        self._btn_outside = arduino.get_pin('d:4:i')
+        self._btn_outside = self._arduino.get_pin('d:4:i')
         self._btn_outside.enable_reporting()
-        self._btn_inside = arduino.get_pin('d:6:i')
+        self._btn_inside = self._arduino.get_pin('d:6:i')
         self._btn_inside.enable_reporting()
 
-        self._servo_motor = arduino.get_pin('d:9:s')
+        self._servo_motor = self._arduino.get_pin('d:9:s')
         self._servo_motor.write(self._UNLOCK_POSITION)
         self._servo_position = self._UNLOCK_POSITION
         self._servo_is_in_use = False
+
+    def close_connection(self):
+        self._arduino.exit()
 
     def get_btn_door_status(self) -> bool:
         return self._btn_door.read()

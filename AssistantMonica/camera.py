@@ -18,12 +18,17 @@ class Camera:
     def __init__(self, cam_configs: dict):
         self.cam = cv2.VideoCapture(cam_configs['address'])
         self.frame = None
+        self.be_alive = True
+
+    def close_connection(self):
+        self.be_alive = False
 
     def _update_cam_attr(self):
-        while True:
+        while self.be_alive:
             if self.cam.isOpened():
                 self.cam.grab()
                 (success, self.frame) = self.cam.retrieve()
+        self.cam.release()
 
     def get_current_frame(self):
         return self.frame
