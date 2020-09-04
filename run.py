@@ -47,4 +47,6 @@ if __name__ == "__main__":
         try:
             run()
         except:
-            sleep(1)
+            print(' --- Erro ao iniciar')
+            print(' --- Tentando novamente em 10 segundoss.')
+            sleep(10)

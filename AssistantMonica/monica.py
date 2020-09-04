@@ -118,4 +118,6 @@ class Monica:
 
         elif command in GET_CORREIO_TRACKING:
             self.check_admin_permission(message.user_id)
-            self.telegram.send_photo(image=self._camera.get_current_frame())
+            tracking_code = message.text.split(':')[1].strip()
+            res = self.correioService.get_last_tracking_info(tracking_code=tracking_code)
+            self.telegram.send_message(text=res)

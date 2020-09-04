@@ -47,8 +47,8 @@ class Arduino:
                     self._servo_motor.write(self._servo_position)
                     sleep(0.02)
                 sleep(3)
-            else:
-                print('[-] A porta ja esta destrancada')
+            # else:
+            #     print('[-] A porta ja esta destrancada')
             self._servo_is_in_use = False
 
     def lock_door(self):
@@ -61,6 +61,6 @@ class Arduino:
                     self._servo_motor.write(self._servo_position)
                     sleep(0.02)
                 sleep(1)
-            else:
-                print('[-] Porta ja esta trancada')
+            # else:
+            #     print('[-] Porta ja esta trancada')
             self._servo_is_in_use = False

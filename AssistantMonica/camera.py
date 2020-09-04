@@ -1,5 +1,5 @@
 from threading import Thread
-import cv2
+from cv2 import imencode, VideoCapture, imshow, waitKey
 
 
 class Buffer:
@@ -9,14 +9,14 @@ class Buffer:
         self._image = image
 
     def read(self):
-        s, img = cv2.imencode(self._type, self._image)
+        s, img = imencode(self._type, self._image)
         return img.tobytes()
 
 
 class Camera:
 
     def __init__(self, cam_configs: dict):
-        self.cam = cv2.VideoCapture(cam_configs['address'])
+        self.cam = VideoCapture(cam_configs['address'])
         self.frame = None
         self.be_alive = True
 
@@ -44,7 +44,7 @@ class Camera:
     def stream_video(self):
         while True:
             if self.frame is not None:
-                cv2.imshow('frame', self.frame)
-                if cv2.waitKey(1) & 0xFF == ord('q'):
+                imshow('frame', self.frame)
+                if waitKey(1) & 0xFF == ord('q'):
                     self.cam.release()
                     break

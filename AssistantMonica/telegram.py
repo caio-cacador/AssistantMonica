@@ -44,13 +44,13 @@ class Telegram:
     def send_photo(self, image, name: str = 'photo.png', _type: str = '.PNG', chat_id: int = None):
         if not chat_id:
             chat_id = self._default_chat_id
-        self.bot.sendPhoto(chat_id, (name, Buffer(_type=_type, image=image)))
+        self._bot.sendPhoto(chat_id, (name, Buffer(_type=_type, image=image)))
 
     def send_message(self, text: str = '', chat_id: int = None):
         if not chat_id:
             chat_id = self._default_chat_id
         try:
-            self.bot.sendMessage(chat_id, text)
+            self._bot.sendMessage(chat_id, text)
         except exception.TelegramError:
             print(f'[-] Chat not found: {chat_id}')
 
