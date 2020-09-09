@@ -30,6 +30,7 @@ OPEN_DOOR = ['abra a porta', 'destranque a porta']
 LOCK_DOOR = ['feche a porta', 'tranque a porta']
 GET_BEDROOM_IMAGE = ['mostre meu quarto', 'mostre o meu quarto', 'mande a foto do quarto', 'mande a foto do meu quarto']
 GET_CORREIO_TRACKING = ['rastreie um objeto', 'rastreie uma encomenda', 'rastreia uma compra']
+REMMEMBER = ['me lembre']
 
 PERMISSION_DENIED_TO_EXECUTE_COMMAND = 'Você não tem permissão para dar esse comando! você é um merda.'
 

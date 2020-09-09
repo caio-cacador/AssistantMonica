@@ -17,7 +17,7 @@ from AssistantMonica.utils import request, get_answer_clean, normalize_str
 class Monica:
 
     def __init__(self, telegram: Telegram, arduino: Arduino, camera: Camera):
-        self._camera = camera
+        self.camera = camera
         self.telegram = telegram
         self.arduino = arduino
         self.correioService = Correio()
@@ -105,19 +105,34 @@ class Monica:
         else:
             self.execute_command(message)
 
+    def _analise_and_execute(self, command, user_id: str, check_admin: bool = False, check_master: bool = False):
+        if check_admin:
+            if not self.telegram.have_admin_permission(user_id):
+                self.telegram.send_message(PERMISSION_DENIED_TO_EXECUTE_COMMAND)
+        elif check_master:
+            if not (self.telegram.have_admin_permission(user_id) or self.telegram.have_master_permission(user_id)):
+                self.telegram.send_message(PERMISSION_DENIED_TO_EXECUTE_COMMAND)
+        command()
+
     def execute_command(self, message: MessageNamedTuple):
         command = normalize_str(message.text)
 
         if command in OPEN_DOOR:
-            self.check_admin_permission(message.user_id)
-            self.arduino.unlock_door()
+            self._analise_and_execute(command=self.arduino.unlock_door(),
+                                      check_admin=True, user_id=message.user_id)
 
         elif command in LOCK_DOOR:
-            self.check_admin_permission(message.user_id)
-            self.arduino.lock_door()
+            self._analise_and_execute(command=self.arduino.lock_door(),
+                                      check_admin=True, user_id=message.user_id)
+
+        elif command in GET_BEDROOM_IMAGE:
+            self._analise_and_execute(command=self.telegram.send_photo(image=self.camera.get_current_frame()),
+                                      check_admin=True, user_id=message.user_id)
 
         elif command in GET_CORREIO_TRACKING:
-            self.check_admin_permission(message.user_id)
             tracking_code = message.text.split(':')[1].strip()
             res = self.correioService.get_last_tracking_info(tracking_code=tracking_code)
-            self.telegram.send_message(text=res)
+            self._analise_and_execute(command=self.telegram.send_message(text=res),
+                                      check_admin=True, user_id=message.user_id)
+
+        elif command in REMEMBER
