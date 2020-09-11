@@ -8,6 +8,7 @@ from AssistantMonica.camera import Camera
 from AssistantMonica.constants import RESTART
 from AssistantMonica.monica import Monica
 from AssistantMonica.telegram import Telegram
+import traceback
 
 
 def run():
@@ -46,6 +47,7 @@ if __name__ == "__main__":
         try:
             run()
         except Exception as ex:
+            traceback.print_exc()
             retry = 10
             print(f' --- Erro ao iniciar >> {ex}')
             print(f' --- Tentando novamente em {retry} segundoss.')

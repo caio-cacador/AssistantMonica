@@ -9,7 +9,6 @@ class Arduino:
 
     def __init__(self, configs: dict):
         self._arduino = PyfirmataArduino(configs['usb_port'])
-        print('arduino is online!')
         it = util.Iterator(self._arduino)
         it.start()
 
