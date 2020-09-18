@@ -3,7 +3,7 @@ from collections import namedtuple
 from telepot import Bot, exception
 from telepot.loop import MessageLoop
 from AssistantMonica import utils
-from AssistantMonica.camera import Buffer
+from AssistantMonica.services.camera import Buffer
 
 MessageNamedTuple = namedtuple('message', ['chat_id', 'text', 'user_name', 'user_id'])
 

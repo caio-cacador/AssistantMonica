@@ -1,4 +1,4 @@
-from AssistantMonica.constants import WHAT_IS_INTERPRETER, WHO_IS_INTERPRETER, CONVERSATION_INTERPRETER, COMPLIMENT
+from AssistantMonica.monica.constants import WHAT_IS_INTERPRETER, WHO_IS_INTERPRETER, CONVERSATION_INTERPRETER, COMPLIMENT
 
 
 def what_is_interpreter(phrase):

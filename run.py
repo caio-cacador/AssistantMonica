@@ -1,13 +1,10 @@
 from time import sleep
-import os
-import sys
 import ujson
 
-from AssistantMonica.arduino import Arduino
-from AssistantMonica.camera import Camera
-from AssistantMonica.constants import RESTART
-from AssistantMonica.monica import Monica
-from AssistantMonica.telegram import Telegram
+from AssistantMonica.monica.monica import Monica
+from AssistantMonica.services.arduino import Arduino
+from AssistantMonica.services.camera import Camera
+from AssistantMonica.services.telegram import Telegram
 import traceback
 
 

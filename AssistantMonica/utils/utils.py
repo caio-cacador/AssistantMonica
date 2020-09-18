@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-from AssistantMonica.constants import TAG_FILTER, TAG_FILTER_FASE_2
+from AssistantMonica.monica.constants import TAG_FILTER, TAG_FILTER_FASE_2
 
 
 def normalize_str(input_str: str):
