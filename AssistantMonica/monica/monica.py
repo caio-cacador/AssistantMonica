@@ -1,7 +1,5 @@
 import random
-
 from google import google
-
 from AssistantMonica.monica import interpreters
 from AssistantMonica.services.arduino import Arduino
 from AssistantMonica.services.camera import Camera
@@ -9,7 +7,6 @@ from AssistantMonica.monica.constants import LINK_FILTER, NORMAL_GREETING, INFOR
     COMPLIMENT_RESPONSE, LOCK_DOOR, OPEN_DOOR, GET_BEDROOM_IMAGE, PERMISSION_DENIED_TO_EXECUTE_COMMAND, \
     GET_CORREIO_TRACKING
 from AssistantMonica.services.correio import Correio
-
 from AssistantMonica.services.telegram import Telegram, MessageNamedTuple
 from AssistantMonica.utils.utils import request, get_answer_clean, normalize_str
 
@@ -22,7 +19,8 @@ class Monica:
         self.arduino = arduino
         self.correioService = Correio()
 
-    def _what_is(self, question):
+    @staticmethod
+    def _what_is(question):
         theme = interpreters.what_is_interpreter(question)
         try:
             search = 'o que é ' + theme
@@ -42,7 +40,8 @@ class Monica:
         except Exception as ex:
             print('Error >>>', ex)
 
-    def _who_is(self, question):
+    @staticmethod
+    def _who_is(question):
         theme = interpreters.who_is_interpreter(question)
         try:
             search = 'quem é ' + theme
@@ -83,9 +82,6 @@ class Monica:
             self.telegram.send_message(PERMISSION_DENIED_TO_EXECUTE_COMMAND)
 
     def message_interpreter(self, message: MessageNamedTuple):
-
-        if message.user_name == 'Adriano':
-            self.telegram.send_message('Desculpe Adriano, não posso conversar com nóias por enquanto.', message.chat_id)
 
         if interpreters.is_what_is_question(message.text):
             self.telegram.send_message('Deixe me ver...', message.chat_id)

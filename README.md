@@ -12,4 +12,4 @@ For cloning this repository, please run the following command:
     $ git clone https://github.com/caio-cacador/AssistantMonica.git
     
 ### Changes
-* v1.0.0 - Added methods 
+* v1.0.0 - Assistant Monica
